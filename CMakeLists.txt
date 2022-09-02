@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 2.8.3)
+cmake_minimum_required(VERSION 3.0.2)
 project(dji_sdk)
 
 ## Find catkin macros and libraries
@@ -14,8 +14,8 @@ find_package(catkin REQUIRED COMPONENTS
   sensor_msgs
 )
 
-set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake-modules")
-find_package(djiosdk-core QUIET)
+# set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake-modules")
+# find_package(djiosdk-core REQUIRED)
 # if(NOT djiosdk-core_FOUND)
 #   MESSAGE(STATUS "DO NOT FIND THE djiosdk-core LIB, WILL TRY TO DOWNLOAD FORM GITHUB, COMPILE, INSTALL")
 #   execute_process(COMMAND mkdir ${CMAKE_CURRENT_SOURCE_DIR}/cmake-modules/build)
