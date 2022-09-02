@@ -14,19 +14,19 @@ find_package(catkin REQUIRED COMPONENTS
   sensor_msgs
 )
 
-set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/../cmake-modules")
+set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake-modules")
 find_package(djiosdk-core QUIET)
-if(NOT djiosdk-core_FOUND)
-  MESSAGE(STATUS "DO NOT FIND THE djiosdk-core LIB, WILL TRY TO DOWNLOAD FORM GITHUB, COMPILE, INSTALL")
-  execute_process(COMMAND mkdir ${CMAKE_CURRENT_SOURCE_DIR}/../cmake-modules/build)
-  execute_process(
-          COMMAND cmake ..
-          WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/../cmake-modules/build)
-
-  execute_process(
-          COMMAND make
-          WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/../cmake-modules/build)
-endif()
+# if(NOT djiosdk-core_FOUND)
+#   MESSAGE(STATUS "DO NOT FIND THE djiosdk-core LIB, WILL TRY TO DOWNLOAD FORM GITHUB, COMPILE, INSTALL")
+#   execute_process(COMMAND mkdir ${CMAKE_CURRENT_SOURCE_DIR}/cmake-modules/build)
+#   execute_process(
+#           COMMAND cmake ..
+#           WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/cmake-modules/build)
+# 
+#   execute_process(
+#           COMMAND make
+#           WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/cmake-modules/build)
+# endif()
 
 find_package(DJIOSDK REQUIRED)
 
@@ -37,7 +37,7 @@ set(CMAKE_CXX_FLAGS "-std=c++11 ${CMAKE_CXX_FLAGS}")
 ## Uncomment this if the package has a setup.py. This macro ensures
 ## modules and global scripts declared therein get installed
 ## See http://ros.org/doc/api/catkin/html/user_guide/setup_dot_py.html
-catkin_python_setup()
+## catkin_python_setup()
 
 ################################################
 ## Declare ROS messages, services and actions ##
@@ -183,6 +183,80 @@ target_link_libraries(dji_sdk_node
   ${catkin_LIBRARIES}
   ${DJIOSDK_LIBRARIES}
 )
+
+
+##########
+#  Demo  #
+##########
+
+add_executable(demo_mission
+        demo/demo_mission.cpp)
+target_link_libraries(demo_mission
+        ${catkin_LIBRARIES}
+        ${DJIOSDK_LIBRARIES}
+        )
+add_dependencies(demo_mission dji_sdk_generate_messages_cpp)
+
+add_executable(demo_camera_gimbal
+        demo/demo_camera_gimbal.cpp )
+target_link_libraries(demo_camera_gimbal
+        ${catkin_LIBRARIES}
+        ${DJIOSDK_LIBRARIES}
+        )
+add_dependencies(demo_camera_gimbal dji_sdk_generate_messages_cpp)
+
+add_executable(demo_mfio
+        demo/demo_mfio.cpp)
+target_link_libraries(demo_mfio
+        ${catkin_LIBRARIES}
+        ${DJIOSDK_LIBRARIES}
+        )
+add_dependencies(demo_mfio dji_sdk_generate_messages_cpp)
+
+add_executable(demo_flight_control
+        demo/demo_flight_control.cpp)
+
+target_link_libraries(demo_flight_control
+        ${catkin_LIBRARIES}
+        ${DJIOSDK_LIBRARIES}
+        )
+add_dependencies(demo_flight_control dji_sdk_generate_messages_cpp)
+
+add_executable(demo_mobile_comm
+        demo/demo_mobile_comm.cpp)
+
+target_link_libraries(demo_mobile_comm
+        ${catkin_LIBRARIES}
+        ${DJIOSDK_LIBRARIES}
+        )
+add_dependencies(demo_mobile_comm dji_sdk_generate_messages_cpp)
+
+add_executable(demo_payload_comm
+        demo/demo_payload_comm.cpp)
+
+target_link_libraries(demo_payload_comm
+        ${catkin_LIBRARIES}
+        ${DJIOSDK_LIBRARIES}
+        )
+add_dependencies(demo_payload_comm dji_sdk_generate_messages_cpp)
+
+add_executable(demo_local_position_control
+        demo/demo_local_position_control.cpp)
+target_link_libraries(demo_local_position_control
+        ${catkin_LIBRARIES}
+        ${DJIOSDK_LIBRARIES}
+        )
+add_dependencies(demo_local_position_control dji_sdk_generate_messages_cpp)
+
+add_executable(demo_time_sync
+        demo/demo_time_sync.cpp)
+target_link_libraries(demo_time_sync
+        ${catkin_LIBRARIES}
+        ${DJIOSDK_LIBRARIES}
+        )
+add_dependencies(demo_time_sync dji_sdk_generate_messages_cpp)
+
+
 
 #############
 ## Install ##
